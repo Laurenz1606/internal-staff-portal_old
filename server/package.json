@@ -1,0 +1,34 @@
+{
+  "name": "name",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "bin": "bin/index.js",
+  "author": "laurenz1606 <laurenz.rausche@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn build:dist && yarn build:bin",
+    "build:bin": "rimraf bin && recursive-copy dist bin && minify-all ./bin",
+    "build:dist": "rimraf ./dist && tsc",
+    "cleanup": "rimraf ./dist && rimraf ./bin && rimraf yarn.lock && rimraf node_modules && yarn install",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "start": "ts-node src/index.ts",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.6",
+    "babel-jest": "^27.3.1",
+    "jest": "^27.3.1",
+    "minify-all": "^1.2.2",
+    "recursive-copy-cli": "^1.0.20",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.4"
+  }
+}
