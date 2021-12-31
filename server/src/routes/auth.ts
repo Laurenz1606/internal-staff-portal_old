@@ -14,7 +14,7 @@ import {
 } from "../utils/tokens";
 import { redisClient } from "../redisClient";
 
-//init the sendmail client
+//init the sendmail client with custom loggers
 const mailSender = promisify(
   sendmail({
     logger: {
