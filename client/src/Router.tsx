@@ -6,8 +6,8 @@ import Login from "./Pages/Login";
 
 export default function Router(): ReactElement {
   setConfig(
-    "https://isp-dev-server.mk-return.de/api",
-    "https://isp-dev-server.mk-return.de/auth",
+    process.env.REACT_APP_API_URL || "",
+    process.env.REACT_APP_AUTH_URL || "",
   );
 
   return (
