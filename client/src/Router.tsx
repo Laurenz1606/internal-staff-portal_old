@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { setConfig, LoggedInOnly, LoggedOutOnly } from "@authfunctions/react";
 import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
+import OneTimePassword from "./Pages/OneTimePassword";
 
 export default function Router(): ReactElement {
   setConfig(
@@ -13,6 +14,14 @@ export default function Router(): ReactElement {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/password"
+          element={
+            <LoggedOutOnly>
+              <OneTimePassword />
+            </LoggedOutOnly>
+          }
+        />
         <Route
           path="/login"
           element={

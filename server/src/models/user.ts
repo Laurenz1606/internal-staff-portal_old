@@ -6,6 +6,7 @@ export interface IUser {
   username: string;
   email: string;
   hashedPassword: string;
+  oneTimePassword: string;
 }
 
 //the schema of the user
@@ -25,7 +26,12 @@ const userSchema = new Schema<IUser>({
   hashedPassword: {
     type: String,
     required: true,
-  }
+  },
+  oneTimePassword: {
+    type: String,
+    required: true,
+    default: "",
+  },
 });
 
 //the exported model of the userSchema

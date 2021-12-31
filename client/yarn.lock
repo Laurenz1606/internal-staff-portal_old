@@ -12,12 +12,9 @@
     leven "^3.1.0"
 
 "@authfunctions/react@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@authfunctions/react/-/react-2.0.0.tgz#ee0ff312017157f4a539412d1f90b17ebf7a4979"
-  integrity sha512-1i9i7NH+YMRAFzhuXzA5fUkSH4w5jg3w6onjyfcFskmoQm6WD3H5b1R+NX52r6MQ+0dUQMRpBshM+f7qs5HNiQ==
-  dependencies:
-    react "^17.0.2"
-    react-router-dom "^6.2.1"
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@authfunctions/react/-/react-2.3.0.tgz#e599dd35a294c56105be783e787fd62e7d9a564b"
+  integrity sha512-ZsD06TO32IABBOdgWXE6p4BRzK7nzFKIThCOSu65ZOIgvy8ddqfBdfl1o8A4H5LKbmXIh1wIjg5Wtf/lRzgtvA==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.16.0", "@babel/code-frame@^7.8.3":
   version "7.16.0"
