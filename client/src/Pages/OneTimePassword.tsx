@@ -1,74 +1,62 @@
+import { useGetOneTime } from "@authfunctions/react";
 import React, { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetOneTime } from "@authfunctions/react";
-import FormPage from "../Layouts/FormPage";
-import Input from "../Components/Input";
+import Button from "../Components/Button";
+import Card from "../Components/Card";
 import Divider from "../Components/Divider";
-import { Link } from "react-router-dom";
+import Input from "../Components/Input";
+import StyledLink from "../Components/StyledLink";
+import FormLayout from "../Layouts/FormLayout";
 
-export default function OneTimePassword(): ReactElement {
-  //use the useLogin hook with react router dom
+export default function Login(): ReactElement {
   const navigate = useNavigate();
   const getOneTimeFunction = useGetOneTime(navigate);
   const [login, setLogin] = useState("");
-  const [error, setError] = useState("");
+  const [statusCode, setStatusCode] = useState(-1);
 
   async function onGetOneTime() {
-    //reset the error
-    setError("");
-
-    //call the login function
     const [err, code, navigator] = await getOneTimeFunction(login);
-
-    //check for errors
-    if (err) {
-      return setError(code.toString());
-    }
-
-    //navigate to the new url
-    return navigator();
+    setStatusCode(code);
+    if (!err) navigator();
   }
 
+  interface Errors {
+    [key: number]: string;
+  }
+
+  const errors: Errors = {
+    5: "Es gab einen Fehler mit dem Server!",
+    61: "Das Benutername/Die Email fehlt!",
+    62: "Der eingegebene Benutzer existiert nicht!",
+  };
+
   return (
-    <FormPage heading="Einmalpasswort">
-      <>
-        <p>
-          Gebe hier deine Email oder dein Benutzernamen ein, du bekommst dann
-          per Email ein Passwort was du einmalig nehmen kannst um dich
-          anzumelden!
-        </p>
-        <div>
-          <Input
-            id="login"
-            setValue={setLogin}
-            title="Email oder Benutzername"
-            value={login}
-            label
-            placeHolder
-            required
-            type="text"
-          />
-        </div>
-        <div>
-          <button
-            onClick={onGetOneTime}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Einmalpasswort generieren!
-          </button>
-        </div>
-        <div>
-          <Divider>Oder</Divider>
-          <div className="mt-4">
-            <Link
-              to="/login"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Zurück zum Login!
-            </Link>
+    <FormLayout heading="Passwort vergessen!">
+      <Card>
+        <Card.Body>
+          <div className="space-y-6">
+            <Input
+              id="login"
+              setValue={setLogin}
+              value={login}
+              label="Email oder Benutzername"
+              placeHolder="Email oder Benutzername"
+              type="text"
+              mode={[5, 61, 62].includes(statusCode) ? "danger" : "default"}
+              info={
+                [5, 61, 62].includes(statusCode)
+                  ? errors[statusCode]
+                  : "Du erhälst ein Einmalpasswort per Email, gebe dies anstatt deines normalen Passworts ein!"
+              }
+            />
+            <Button text="Anmelden" stretch onClick={onGetOneTime} />
+            <Divider text="Oder" />
+            <div>
+              <StyledLink to="/login">Zum Anmelden!</StyledLink>
+            </div>
           </div>
-        </div>
-      </>
-    </FormPage>
+        </Card.Body>
+      </Card>
+    </FormLayout>
   );
 }

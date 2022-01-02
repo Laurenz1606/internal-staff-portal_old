@@ -1,18 +1,35 @@
-import React, { Children, ReactElement } from "react";
+import React, { ReactElement } from "react";
 
 interface Props {
-  children: string;
+  text?: string;
+  align?: "left" | "middle" | "right";
+  type?: "title" | "label";
 }
 
-export default function Divider({ children }: Props): ReactElement {
+export default function Divider({
+  text,
+  align = "middle",
+  type = "label",
+}: Props): ReactElement {
   return (
-    <div className="relative">
-      <div className="absolute inset-0 flex items-center" aria-hidden="true">
-        <div className="w-full border-t border-gray-300" />
-      </div>
-      <div className="relative flex justify-center">
-        <span className="px-2 bg-white text-sm text-gray-500">{children}</span>
-      </div>
+    <div className="flex flex-row justify-center items-center">
+      {align === "right" || align === "middle" ? <DividerLine /> : ""}
+      {align === "right" ? <DividerLine /> : ""}
+      <span
+        className={
+          type === "label"
+            ? "px-2 text-gray-500 text-sm"
+            : "px-3 text-lg font-medium text-gray-900"
+        }
+      >
+        {text}
+      </span>
+      {align === "left" ? <DividerLine /> : ""}
+      {align === "left" || align === "middle" ? <DividerLine /> : ""}
     </div>
   );
+}
+
+function DividerLine(): ReactElement {
+  return <div className="flex-1 border-b border-gray-300"></div>;
 }

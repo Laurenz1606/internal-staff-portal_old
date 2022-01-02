@@ -1,3 +1,4 @@
+import { logger } from "@laurenz1606/logger";
 import { sign, verify } from "jsonwebtoken";
 
 export function generateAccessToken(tokendata: any) {
@@ -42,7 +43,7 @@ export function decodeAccessToken(accessToken: string): [boolean, any] {
     );
     return [false, tokendata];
   } catch (err) {
-    console.error(err)
+    logger(String(err), "error")
     return [true, null];
   }
 }
@@ -62,7 +63,7 @@ export function decodeRefreshToken(refreshToken: string): [boolean, any] {
     );
     return [false, tokendata];
   } catch (err) {
-    console.error(err)
+    logger(String(err), "error")
     return [true, null];
   }
 }

@@ -1,6 +1,6 @@
 import { logger } from "@laurenz1606/logger";
 import express from "express";
-import { compare, hash } from "bcrypt";
+import { compare, hash, hashSync } from "bcrypt";
 import { randomBytes } from "crypto";
 import { promisify } from "util";
 import sendmail from "sendmail";
@@ -13,6 +13,7 @@ import {
   generateRefreshToken,
 } from "../utils/tokens";
 import { redisClient } from "../redisClient";
+import { v4 } from "uuid";
 
 //init the sendmail client with custom loggers
 const mailSender = promisify(
@@ -274,10 +275,10 @@ authRouter.post("/get1time", async (req, res) => {
 
     //send the password to the users email
     await mailSender({
-      from: "password@isp.mk-return.de",
-      subject: "1 Time Password",
+      from: "passwort@isp.mk-return.de",
+      subject: "Dein Einmalpasswort!",
       to: user.email,
-      html: `Your oneTime-Password is: ${oneTimePassword}`,
+      html: `Du hast ein Einmalpasswort angefordert, gebe das Passwort anstatt deines normalen Passwortes im Login ein! Dein Einmalpasswort ist: ${oneTimePassword}`,
     });
 
     //send success to the client

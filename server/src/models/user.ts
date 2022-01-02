@@ -29,7 +29,6 @@ const userSchema = new Schema<IUser>({
   },
   oneTimePassword: {
     type: String,
-    required: true,
     default: "",
   },
 });
