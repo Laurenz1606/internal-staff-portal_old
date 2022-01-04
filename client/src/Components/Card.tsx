@@ -1,18 +1,21 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 
 interface Props {
-  children?: ReactElement[] | ReactElement | string;
+  children?: ReactNode | ReactNode;
 }
 
 export default function Card({
   children,
   roundedOnMobile = false,
-}: Props & { roundedOnMobile?: boolean }): ReactElement {
+  className,
+}: Props & { roundedOnMobile?: boolean; className?: string }): ReactElement {
   return (
     <div
       className={
-        "bg-white overflow-hidden shadow divide-y divide-gray-200 " +
-        (!roundedOnMobile ? "sm:rounded-lg" : "rounded-lg")
+        "bg-white overflow-hidden shadow divide-y divide-gray-200 flex flex-col " +
+        (!roundedOnMobile ? "sm:rounded-lg" : "rounded-lg") +
+        " " +
+        className
       }
     >
       {children}
@@ -25,7 +28,7 @@ Card.Header = function ({ children }: Props): ReactElement {
 };
 
 Card.Body = function ({ children }: Props): ReactElement {
-  return <div className="px-4 py-5 sm:p-6">{children}</div>;
+  return <div className="px-4 py-5 sm:p-6 flex-1">{children}</div>;
 };
 
 Card.Footer = function ({ children }: Props): ReactElement {

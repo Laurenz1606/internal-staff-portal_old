@@ -1,14 +1,20 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import React, { FC, Fragment, MouseEventHandler, ReactElement } from "react";
+import React, {
+  FC,
+  Fragment,
+  MouseEventHandler,
+  ReactElement,
+  ReactNode,
+} from "react";
 import { Link } from "react-router-dom";
 
 interface DropdownProps {
-  children: ReactElement | ReactElement[];
+  children: ReactNode | ReactNode[];
 }
 
 interface DropdownButtonProps {
-  children: ReactElement | ReactElement[] | string;
+  children: ReactNode | ReactNode[] | string;
   border?: boolean;
 }
 
@@ -48,7 +54,9 @@ Dropdown.Button = function ({
           (border ? " border border-gray-300 shadow-sm" : "")
         }
       >
-        <span className="inline-flex justify-center items-center space-x-3">{children}</span>
+        <span className="inline-flex justify-center items-center space-x-3">
+          {children}
+        </span>
         <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
       </Menu.Button>
     </div>

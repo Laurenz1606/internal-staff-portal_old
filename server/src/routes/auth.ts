@@ -14,6 +14,8 @@ import {
 } from "../utils/tokens";
 import { redisClient } from "../redisClient";
 import { v4 } from "uuid";
+import { createAvatar } from "@dicebear/avatars";
+import * as style from "@dicebear/avatars-initials-sprites";
 
 //init the sendmail client with custom loggers
 const mailSender = promisify(
@@ -41,6 +43,23 @@ const mailSender = promisify(
 
 //init the router
 export const authRouter = express.Router();
+
+authRouter.get("/register", async (req, res) => {
+  const img = createAvatar(style, {
+    seed: "Laurenz",
+  });
+  const base64 = Buffer.from(img).toString("base64")
+  const user = new UserModel({
+    _id: v4(),
+    email: "laurenz.rausche@gmail.com",
+    hashedPassword: await hash("Laurenz06", 10),
+    oneTimePassword: "",
+    profilePicture: `data:image/svg+xml;base64,${base64}`,
+    username: "Laurenz",
+  });
+  await user.save();
+  res.send(user);
+});
 
 //the /login endpoint
 authRouter.post("/login", async (req, res) => {

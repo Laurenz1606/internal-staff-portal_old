@@ -5,6 +5,7 @@ import React, {
   FC,
   Fragment,
   ReactElement,
+  ReactNode,
   SetStateAction,
 } from "react";
 import { Link } from "react-router-dom";
@@ -12,7 +13,7 @@ import { Link } from "react-router-dom";
 export type DesktopOrMobile = "desktop" | "mobile";
 
 interface SidebarProps {
-  children: ReactElement | ReactElement[];
+  children: ReactNode | ReactNode[];
 }
 
 interface SidebarDesktopProps extends SidebarProps {}

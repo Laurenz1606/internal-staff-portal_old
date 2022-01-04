@@ -3,12 +3,14 @@ import React, {
   Dispatch,
   FC,
   FormEventHandler,
+  MouseEventHandler,
   ReactElement,
+  ReactNode,
   SetStateAction,
 } from "react";
 
 interface NavbarProps {
-  children: ReactElement | ReactElement[];
+  children: ReactNode | ReactNode[];
 }
 
 interface NavbarSidebarButtonProps {
@@ -27,6 +29,7 @@ interface NavbarSearchbarProps {
 
 interface NavbarIconButtonProps {
   Icon: FC<{ className: string }>;
+  onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
 export default function Navbar({ children }: NavbarProps): ReactElement {
@@ -55,9 +58,7 @@ Navbar.ContentWrapper1 = function ({ children }: NavbarContentWrapper1Props) {
 };
 
 Navbar.ContentWrapper2 = function ({ children }: NavbarContentWrapper2Props) {
-  return (
-    <div className="ml-4 flex items-center md:ml-6 space-x-3">{children}</div>
-  );
+  return <div className="flex items-center md:ml-6 space-x-3">{children}</div>;
 };
 
 Navbar.Searchbar = function ({
@@ -97,10 +98,11 @@ Navbar.Searchbar = function ({
   );
 };
 
-Navbar.IconButton = function ({ Icon }: NavbarIconButtonProps) {
+Navbar.IconButton = function ({ Icon, onClick }: NavbarIconButtonProps) {
   return (
     <button
       type="button"
+      onClick={onClick}
       className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
     >
       <Icon className="h-6 w-6" aria-hidden="true" />

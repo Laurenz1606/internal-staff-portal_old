@@ -16,6 +16,8 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
+    "@dicebear/avatars": "^4.10.2",
+    "@dicebear/avatars-initials-sprites": "^4.10.2",
     "@laurenz1606/logger": "^2.0.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",

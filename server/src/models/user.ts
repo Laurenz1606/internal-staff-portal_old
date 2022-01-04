@@ -7,6 +7,7 @@ export interface IUser {
   email: string;
   hashedPassword: string;
   oneTimePassword: string;
+  profilePicture: string;
 }
 
 //the schema of the user
@@ -30,6 +31,10 @@ const userSchema = new Schema<IUser>({
   oneTimePassword: {
     type: String,
     default: "",
+  },
+  profilePicture: {
+    type: String,
+    required: true,
   },
 });
 

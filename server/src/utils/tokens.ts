@@ -1,5 +1,7 @@
 import { logger } from "@laurenz1606/logger";
+import { Request, Response, NextFunction } from "express";
 import { sign, verify } from "jsonwebtoken";
+import { sendError, sendServerError } from "./senders";
 
 export function generateAccessToken(tokendata: any) {
   //check for accesssToken secret
@@ -43,7 +45,7 @@ export function decodeAccessToken(accessToken: string): [boolean, any] {
     );
     return [false, tokendata];
   } catch (err) {
-    logger(String(err), "error")
+    logger(String(err), "warn");
     return [true, null];
   }
 }
@@ -63,7 +65,42 @@ export function decodeRefreshToken(refreshToken: string): [boolean, any] {
     );
     return [false, tokendata];
   } catch (err) {
-    logger(String(err), "error")
+    logger(String(err), "warn");
     return [true, null];
+  }
+}
+
+export async function authenticateToken(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    //get the token from the header
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    //validate token exists on request
+    if (!token) {
+      return sendError(res, 400, 1);
+    }
+
+    //decode/check the accessToken
+    const [err, payload] = decodeAccessToken(token);
+
+    //check for errors
+    if (err) {
+      return sendError(res, 403, 2);
+    }
+
+    //save the payload to res.locals
+    res.locals.payload = payload;
+
+    //call next middleware
+    next();
+  } catch (err) {
+    //send server error
+    logger(String(err), "error");
+    sendServerError(res);
   }
 }

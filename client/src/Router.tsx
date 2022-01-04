@@ -13,6 +13,8 @@ import Documents from "./Pages/Documents";
 import AltIT from "./Pages/AltIT";
 import Sammelwettbewerb from "./Pages/Sammelwettbewerb";
 import Settings from "./Pages/Settings";
+import Profile from "./Pages/Profile";
+import Notifications from "./Pages/Notifications";
 
 export default function Router(): ReactElement {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -69,6 +71,8 @@ export default function Router(): ReactElement {
           <Route path="/alt-it" element={<AltIT />} />
           <Route path="/sammelwettbewerb" element={<Sammelwettbewerb />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Route>
       </Routes>
     </BrowserRouter>
