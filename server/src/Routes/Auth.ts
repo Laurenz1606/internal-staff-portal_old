@@ -4,14 +4,14 @@ import { compare, hash, hashSync } from "bcrypt";
 import { randomBytes } from "crypto";
 import { promisify } from "util";
 import sendmail from "sendmail";
-import UserModel from "../models/user";
-import { sendData, sendError, sendServerError } from "../utils/senders";
+import UserModel from "../Models/User";
+import { sendData, sendError, sendServerError } from "../Utils/senders";
 import {
   decodeAccessToken,
   decodeRefreshToken,
   generateAccessToken,
   generateRefreshToken,
-} from "../utils/tokens";
+} from "../Utils/tokens";
 import { redisClient } from "../redisClient";
 import { v4 } from "uuid";
 import { createAvatar } from "@dicebear/avatars";

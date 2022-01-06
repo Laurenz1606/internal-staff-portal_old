@@ -143,7 +143,7 @@ export default function SidebarLayout({
   useEffect(() => {
     (async () => {
       //fetch
-      const [err, data, navigator] = await fetcher("/user/info", "GET", {}, {});
+      const [err, data, navigator] = await fetcher("/users/info", "GET", {}, {});
 
       //destructure the data
       const { _id, email, username, profilePicture } =
@@ -210,7 +210,7 @@ export default function SidebarLayout({
                       src={userData.profilePicture}
                       size="sm"
                       rounded="md"
-                      status="yellow"
+                      status="gray"
                     />
                     <span className="hidden lg:block">{userData.username}</span>
                   </Dropdown.Button>

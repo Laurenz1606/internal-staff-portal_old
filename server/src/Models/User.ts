@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { v4 } from "uuid";
 
 //the user interface
 export interface IUser {
@@ -8,6 +9,7 @@ export interface IUser {
   hashedPassword: string;
   oneTimePassword: string;
   profilePicture: string;
+  roles: string[];
 }
 
 //the schema of the user
@@ -15,6 +17,7 @@ const userSchema = new Schema<IUser>({
   _id: {
     type: String,
     required: true,
+    default: () => v4()
   },
   username: {
     type: String,
@@ -35,6 +38,11 @@ const userSchema = new Schema<IUser>({
   profilePicture: {
     type: String,
     required: true,
+  },
+  roles: {
+    type: [String],
+    required: true,
+    default: [],
   },
 });
 
