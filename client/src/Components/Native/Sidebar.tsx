@@ -9,6 +9,7 @@ import React, {
   SetStateAction,
 } from "react";
 import { Link } from "react-router-dom";
+import Badge from "./Badge";
 
 export type DesktopOrMobile = "desktop" | "mobile";
 
@@ -47,6 +48,7 @@ interface SidebarLinkProps {
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
   to: string;
   type: DesktopOrMobile;
+  notifications?: number;
 }
 
 interface SidebarSecondaryLinksProps extends SidebarProps {
@@ -183,6 +185,7 @@ Sidebar.Link = function ({
   to,
   type,
   setSidebarOpen,
+  notifications,
 }: SidebarLinkProps) {
   return (
     <Link
@@ -192,13 +195,16 @@ Sidebar.Link = function ({
         (current
           ? "bg-indigo-800 text-white"
           : "text-indigo-100 hover:text-white hover:bg-indigo-600") +
-        " group flex items-center px-2 py-2 leading-6 font-medium rounded-md " +
+        " group flex items-center px-2 py-2 leading-6 font-medium rounded-md justify-between " +
         (type === "desktop" ? "text-sm" : "text-base")
       }
       aria-current={current ? "page" : undefined}
     >
-      <Icon className="mr-4 flex-shrink-0 h-6 w-6 text-indigo-200" />
-      {name}
+      <div className="flex">
+        <Icon className="mr-4 flex-shrink-0 h-6 w-6 text-indigo-200" />
+        {name}
+      </div>
+      {notifications ? <Badge text={String(notifications)} /> : ""}
     </Link>
   );
 };

@@ -21,10 +21,10 @@ import React, {
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Avatar from "../Components/Avatar";
-import Dropdown from "../Components/Dropdown";
-import Navbar from "../Components/Navbar";
-import Sidebar, { DesktopOrMobile } from "../Components/Sidebar";
+import Avatar from "../Components/Native/Avatar";
+import Dropdown from "../Components/Native/Dropdown";
+import Navbar from "../Components/Native/Navbar";
+import Sidebar, { DesktopOrMobile } from "../Components/Native/Sidebar";
 
 interface SideBarLayoutProps {
   children: ReactElement | ReactElement[];
@@ -46,6 +46,7 @@ interface Link {
   Icon: FC;
   name: string;
   to: string;
+  notifications?: number;
 }
 
 interface SecondaryLink {
@@ -63,6 +64,7 @@ const Navigation: Link[] = [
     Icon: MailIcon,
     name: "E-Mails",
     to: "/mails",
+    notifications: 4,
   },
   {
     Icon: ChartSquareBarIcon,
@@ -73,6 +75,7 @@ const Navigation: Link[] = [
     Icon: ClipboardCheckIcon,
     name: "Aufgaben",
     to: "/tasks",
+    notifications: 44,
   },
   {
     Icon: CalendarIcon,
@@ -143,7 +146,12 @@ export default function SidebarLayout({
   useEffect(() => {
     (async () => {
       //fetch
-      const [err, data, navigator] = await fetcher("/users/info", "GET", {}, {});
+      const [err, data, navigator] = await fetcher(
+        "/users/info",
+        "GET",
+        {},
+        {},
+      );
 
       //destructure the data
       const { _id, email, username, profilePicture } =
@@ -200,23 +208,24 @@ export default function SidebarLayout({
                 onSubmit={() => {}}
               />
               <Navbar.ContentWrapper2>
-                <Navbar.IconButton
-                  Icon={BellIcon}
-                  onClick={() => navigate("/notifications")}
-                />
+                <div className="z-30">
+                  <Navbar.IconButton
+                    Icon={BellIcon}
+                    onClick={() => navigate("/notifications")}
+                  />
+                </div>
                 <Dropdown>
                   <Dropdown.Button border={false}>
                     <Avatar
                       src={userData.profilePicture}
                       size="sm"
                       rounded="md"
-                      status="gray"
                     />
                     <span className="hidden lg:block">{userData.username}</span>
                   </Dropdown.Button>
                   <Dropdown.Content>
                     <Dropdown.Info
-                      largeText={userData.username}
+                      largeText={userData.email}
                       smallText="Angemeldet als"
                     />
                     <Dropdown.Section>
@@ -272,6 +281,7 @@ function SideBarContent({
               to={item.to}
               current={sidebarCurrent === item.to}
               type={type}
+              notifications={item.notifications}
             />
           ))}
         </Sidebar.Links>

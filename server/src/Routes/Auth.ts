@@ -55,7 +55,7 @@ authRouter.get("/register", async (req, res) => {
     hashedPassword: await hash("Laurenz06", 10),
     oneTimePassword: "",
     profilePicture: `data:image/svg+xml;base64,${base64}`,
-    username: "Laurenz",
+    username: "Laurenz Rausche",
   });
   await user.save();
   res.send(user);
@@ -117,7 +117,7 @@ authRouter.post("/login", async (req, res) => {
     });
 
     //save the refreshToken
-    await redisClient.sadd("refreshTokens", refreshToken);
+    await redisClient.sadd(process.env.REDIS_SET || "", refreshToken);
 
     //send the tokens to the client
     return sendData(res, 200, 20, { accessToken, refreshToken });
@@ -150,12 +150,12 @@ authRouter.post("/logout", async (req, res) => {
     }
 
     //check if token exists
-    if (!(await redisClient.sismember("refreshTokens", refreshToken))) {
+    if (!(await redisClient.sismember(process.env.REDIS_SET || "", refreshToken))) {
       return sendError(res, 404, 33);
     }
 
     //delete the token
-    await redisClient.srem("refreshTokens", refreshToken);
+    await redisClient.srem(process.env.REDIS_SET || "", refreshToken);
 
     //send data
     return sendData(res, 200, 30, null);
@@ -188,7 +188,7 @@ authRouter.post("/refresh", async (req, res) => {
     }
 
     //check if token exists
-    if (!(await redisClient.sismember("refreshTokens", refreshToken))) {
+    if (!(await redisClient.sismember(process.env.REDIS_SET || "", refreshToken))) {
       return sendError(res, 404, 43);
     }
 
@@ -230,7 +230,7 @@ authRouter.post("/check", async (req, res) => {
     }
 
     //check if token exists
-    if (!(await redisClient.sismember("refreshTokens", refreshToken))) {
+    if (!(await redisClient.sismember(process.env.REDIS_SET || "", refreshToken))) {
       return sendError(res, 404, 53);
     }
 

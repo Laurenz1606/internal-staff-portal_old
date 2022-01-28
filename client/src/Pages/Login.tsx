@@ -1,12 +1,12 @@
 import { useLogin } from "@authfunctions/react";
 import React, { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../Components/Button";
-import Card from "../Components/Card";
-import Divider from "../Components/Divider";
-import Input from "../Components/Input";
+import Button from "../Components/Native/Button";
+import Card from "../Components/Native/Card";
+import Divider from "../Components/Native/Divider";
+import Input from "../Components/Native/Input";
 import FormLayout from "../Layouts/FormLayout";
-import StyledLink from "../Components/StyledLink";
+import StyledLink from "../Components/Native/StyledLink";
 
 export default function Login(): ReactElement {
   const navigate = useNavigate();

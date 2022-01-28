@@ -1,4 +1,6 @@
 import { ReactElement } from "react";
+import Flex from "../Components/Native/Flex";
+import Heading from "../Components/Native/Heading";
 
 interface Props {
   heading: string;
@@ -7,14 +9,14 @@ interface Props {
 
 export default function FormLayout({ heading, children }: Props): ReactElement {
   return (
-    <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <Flex horizontal="center" col className="min-h-full py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          {heading}
-        </h2>
+        <Flex horizontal="center">
+          <Heading text={heading} />
+        </Flex>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">{children}</div>
-    </div>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md w-full">{children}</div>
+    </Flex>
   );
 }

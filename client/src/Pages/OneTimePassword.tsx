@@ -1,11 +1,11 @@
 import { useGetOneTime } from "@authfunctions/react";
 import React, { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../Components/Button";
-import Card from "../Components/Card";
-import Divider from "../Components/Divider";
-import Input from "../Components/Input";
-import StyledLink from "../Components/StyledLink";
+import Button from "../Components/Native/Button";
+import Card from "../Components/Native/Card";
+import Divider from "../Components/Native/Divider";
+import Input from "../Components/Native/Input";
+import StyledLink from "../Components/Native/StyledLink";
 import FormLayout from "../Layouts/FormLayout";
 
 export default function Login(): ReactElement {
@@ -49,7 +49,11 @@ export default function Login(): ReactElement {
                   : "Du erhälst ein Einmalpasswort per Email, gebe dies anstatt deines normalen Passworts ein!"
               }
             />
-            <Button text="Anmelden" stretch onClick={onGetOneTime} />
+            <Button
+              text="Einmalpasswort generieren"
+              stretch
+              onClick={onGetOneTime}
+            />
             <Divider text="Oder" />
             <div>
               <StyledLink to="/login">Zum Anmelden!</StyledLink>

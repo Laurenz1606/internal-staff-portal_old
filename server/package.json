@@ -9,10 +9,12 @@
     "build": "yarn build:dist && yarn build:bin",
     "build:bin": "rimraf bin && recursive-copy dist bin && minify-all ./bin",
     "build:dist": "rimraf ./dist && tsc",
-    "cleanup": "rimraf ./dist && rimraf ./bin && rimraf yarn.lock && rimraf node_modules && yarn install",
+    "build:remove": "rimraf ./dist && rimraf ./bin",
+    "cleanup": "yarn build:remove && rimraf yarn.lock && rimraf node_modules && yarn install",
     "dev": "ts-node-dev --respawn src/index.ts",
     "start": "ts-node src/index.ts",
     "test": "jest",
+    "deploy": "yarn build:remove && yarn build && sudo rm -rf /var/www/isp.mk-return.de/server/* && sudo cp -r bin /var/www/isp.mk-return.de/server/ && sudo cp package.json /var/www/isp.mk-return.de/server/ && yarn build:remove && cd /var/www/isp.mk-return.de/server/ && sudo yarn install --production && cd .. && sudo pm2 restart ecosystem.config.js --only isp-server",
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
